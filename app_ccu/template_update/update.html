@@ -1,0 +1,26 @@
+<widget-header titulo = 'NOVA SENHA DE ACESSO'></widget-header>
+
+<div class="home fonteBranca">
+  
+  <center><span class="error" ng-show="vm.showError">{{vm.message}}</span></center>
+  <form>
+
+  		<div class="form-group">
+          <label>Senha</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha" ng-model='vm.user.password'>
+      </div>
+  
+  		<div class="form-group">
+    			<label>Confirme a Senha</label>
+    				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha" ng-model='vm.compara'>
+  		</div>
+     
+      <button type="submit" class="btn btn-default corpoProdutos" ng-click="vm.enviar(vm.user)">Enviar</button>
+
+        <center>
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="vm.mostrarLoading">
+          </span>
+        </center>
+    </div>
+	</form>
+</div>

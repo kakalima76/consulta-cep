@@ -1,0 +1,32 @@
+<widget-header titulo = 'REGISTRO DE USUARIO'></widget-header>
+
+<div class="home fonteBranca">
+  <center><span class="error" ng-show="vm.showError">{{vm.message}}</span></center>
+	<form>
+
+
+  		<div class="form-group">
+        <label>Nome Funcional</label>
+          <input type="text" class="form-control"  placeholder="Usuário" ng-model='vm.user.name'>
+      </div>
+
+      <div class="form-group">
+        <label>Matrícula</label>
+          <input type="text" class="form-control"  placeholder="Matrícula" ng-model='vm.user.matricula' maxlength="7">
+      </div>
+  
+  		<div class="form-group">
+    			<label>Senha</label>
+    				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha" ng-model='vm.user.password'>
+  		</div>
+
+      <div class="form-group">
+          <label>Confirme a Senha</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha" ng-model='vm.compara'>
+      </div>
+     
+      <button type="submit" class="btn btn-default corpoProdutos" ng-click="vm.enviar(vm.user)">Enviar</button>
+
+    </div>
+	</form>
+</div>
