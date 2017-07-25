@@ -15,6 +15,16 @@ function _connection(){
     return 'mongodb://' + auth + server + ':' + port + '/' + database;
 }
 
+
+
+// Using `mongoose.connect`...
+var promise = mongoose.connect(_connection(), {
+  useMongoClient: true,
+  /* other options */
+});
+
+//depreciado...
+/*
 mongoose.connect(_connection());
 var db = mongoose.connection;
 db.on('error', function(err){
@@ -23,6 +33,6 @@ db.on('error', function(err){
 
 db.once('open', function(cb){
     console.log('connected to mongodb');
-})
+})*/
 
 module.exports = mongoose;

@@ -2,11 +2,11 @@ var mongoose = require( 'mongoose' );
 
 
 var localSchema = new mongoose.Schema({
-	'bairro': {'type': String, 'index': true},
-	'lng': {'type': Number}, 
-	'lat': {'type': Number}
+	'bairro': {type: String},
+	'local': {type: String, 'default': ''},
+	'dist': {type: Number, 'default': 0},
+	'coords': {type: [Number]}
 });
-
 
 
 mongoose.model('Locais', localSchema, 'locais');

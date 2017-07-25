@@ -11,6 +11,8 @@ var Locais = mongoose.model('Locais');
 
 	module.exports.criarLocal = function(req, res){
 
+
+
 		if(!req.body.bairro || !req.body.lng || !req.body.lat) {
 			sendJsonResponse(res, 404, {
 				'message': 'Geocódigos faltando!'
@@ -20,12 +22,11 @@ var Locais = mongoose.model('Locais');
 		}
 
 		var locais = new Locais();
-		
-		var d = new Date();
-		d.setHours(d.getHours() - 3); 
+
 		locais.bairro =  req.body.bairro;
-		locais.lng = req.body.lng;
-		locais.lat = req.body.lat;  
+
+		locais.coords.push(req.body.lng); 
+		locais.coords.push(req.body.lat);
 		
 		locais.save(function(err, data){
 					if(err){
@@ -57,6 +58,81 @@ var Locais = mongoose.model('Locais');
 			}
 				
 		})	
+	}
+
+
+	module.exports.listarProximos = function(req, res){
+
+
+		if(!req.body.lng || !req.body.lat || !req.body.quantidade) {
+			sendJsonResponse(res, 404, {
+				'message': 'Geocódigos faltando!'
+			})
+
+			return;
+		}
+
+		var lng = parseFloat(req.body.lng);
+		var lat = parseFloat(req.body.lat);
+		var quantidade = parseInt(req.body.quantidade);
+
+
+		var point = {
+			type: "Point",
+			coordinates: [lng, lat]
+		};
+
+		var options = {
+			'spherical': true,
+			'num': quantidade,
+			'query': {'local': ''}
+		}
+
+
+		Locais.geoNear(point, options, function(err, results, stats){
+			if(err){
+				console.log('erro: ' + err);
+				sendJsonResponse(res, 400, err);
+
+			}else{
+		
+				sendJsonResponse(res, 200, results);
+
+			}
+
+			
+		})
+		
+	}
+
+
+	module.exports.atualizar = function(req, res){
+
+		if(!req.body.id || !req.body.local || !req.body.dist) {
+			sendJsonResponse(res, 404, {
+				'message': 'Dados faltando!'
+			})
+
+			return;
+		}
+
+		Locais
+
+		.findById(req.body.id)
+		.exec(
+			function(err, data){
+				data.local = req.body.local;
+				data.dist = req.body.dist;
+				data.save(function(err, data){
+					if(err){
+						sendJsonResponse(res, 404, err)
+					}else{
+						sendJsonResponse(res, 200, data)
+					}
+				})
+
+			}
+		)
 	}
 
 
