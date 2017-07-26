@@ -100,7 +100,6 @@ var Locais = mongoose.model('Locais');
 
 			}
 
-			
 		})
 		
 	}
