@@ -13,7 +13,7 @@ var Locais = mongoose.model('Locais');
 
 
 
-		if(!req.body.bairro || !req.body.lng || !req.body.lat) {
+		if(!req.body.bairro || !req.body.lng || !req.body.lat || !req.body.inscricao) {
 			sendJsonResponse(res, 404, {
 				'message': 'Geocódigos faltando!'
 			})
@@ -24,7 +24,7 @@ var Locais = mongoose.model('Locais');
 		var locais = new Locais();
 
 		locais.bairro =  req.body.bairro;
-
+		locais.inscricao = req.body.inscricao;
 		locais.coords.push(req.body.lng); 
 		locais.coords.push(req.body.lat);
 		
